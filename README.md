@@ -20,3 +20,4 @@ Define Schema
 - CreatedAt
 
 Connect database
+CRUD

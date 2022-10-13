@@ -3,7 +3,10 @@ const { Schema } = mongoose;
 
 const logEntrySchema = new Schema(
   {
-    title: { type: String, required: true },
+    title: {
+      type: String,
+      required: true,
+    },
     description: String,
     rating: {
       type: Number,
@@ -12,7 +15,10 @@ const logEntrySchema = new Schema(
       default: 0,
     },
     image: String,
-    imageDate: { type: Date, required: true },
+    // imageDate: {
+    //   type: Date,
+    //   required: true,
+    // },
     latitude: {
       type: Number,
       min: -90,
