@@ -14,7 +14,11 @@ connectDB();
 const app = express();
 
 app.use(morgan("common"));
-
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGIN,
+  })
+);
 ///middlewares
 app.use(express.json());
 //app.use(express.urlencoded({ extended: true }));

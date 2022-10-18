@@ -1,8 +1,10 @@
 ## Full Stack Travel Journal
 
-A full stack app to show a list of places you have traveled.
+A full stack web application to show a list of places you have traveled.
 
-### How to setup the app
+## How to setup the app
+
+### Backend
 
 Setup Server
 
@@ -10,14 +12,24 @@ Setup Server
 - Setup Express App
 - Setup Express error handler
 
-Setup Database
-Define Schema
+Connect to MongoDB
+
+- Use connection string
+
+Define Travel Log Schema
 
 - Title
+- Rating
 - Description
 - Latitude
 - Longitude
 - CreatedAt
 
-Connect database
-CRUD
+Setup Routes
+
+- GET
+- POST
+- PUT
+- DELETE
+
+## Frontend
