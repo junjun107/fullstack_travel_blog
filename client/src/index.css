@@ -6,24 +6,24 @@ body {
   height: 100vh;
   width: 100vh;
   overflow: hidden;
+  box-sizing: border-box;
+}
+.mapboxgl-popup-content {
+  width: max-content;
+  border-radius: 10px;
+  font: 400 15px/22px "Source Sans Pro", "Helvetica Neue", sans-serif;
+  /* border: 2px solid blue; */
 }
 
-/* .map-container {
-  height: 400px;
-} */
-
-/* .sidebar {
-  background-color: rgba(35, 55, 75, 0.9);
-  color: #fff;
-  padding: 6px 12px;
-  font-family: monospace;
-  z-index: 1;
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 12px;
-  border-radius: 4px;
-} */
+label {
+  color: #c83c2d;
+  font-size: 14px;
+  width: max-content;
+}
+.map {
+  height: "100vh";
+  width: "100%";
+}
 .marker {
   display: block;
   border: none;
@@ -32,4 +32,75 @@ body {
   padding: 0;
   height: 50px;
   width: 40px;
+}
+.stars {
+  padding: 8px 0;
+}
+
+.star {
+  color: gold;
+}
+.description {
+  font-size: 14px;
+}
+.popupLog {
+  width: 40vw;
+  padding: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  /* border: 5px solid rgb(255, 106, 0); */
+}
+.popupLog img {
+  height: 50%;
+  width: 50%;
+  /* width: auto; */
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+}
+
+/* -------- form --------------- */
+.formContainer {
+  /* border: 2px solid red; */
+  /* width: 100%; */
+  width: 20vw;
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* .formContainer img {
+  height: 200px;
+  width: auto;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+} */
+
+.entryForm input,
+.entryForm textarea,
+.entryForm button {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  display: block;
+  width: 100%;
+}
+
+.submitBtn {
+  /* border: blueviolet 3px dotted; */
+  display: block;
+  width: 100%;
+  padding: 10px 15px;
+  background-color: #ca5042;
+  border-radius: 5px;
+  border-style: none;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.submitBtn:hover,
+.submitBtn:focus {
+  background-color: #dd5353;
 }
