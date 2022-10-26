@@ -80,5 +80,3 @@ const getEntries = async () => {
 
 Cors Origin Error
 Cores Origin url in the backend doesn't match the frontend url localhost:3000
-
-Between Formik, React Hook Form and React Final Form, I picked Formik
