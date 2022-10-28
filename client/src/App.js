@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import Map, { Marker, Popup } from "react-map-gl";
 import listLogEntries from "./API";
-//import pinLogo from "./asset/orange-pin.svg";
 import MarkerRedSolid from "./asset/marker-red-solid.png";
-import LogEntryForm from "./LogEntryForm";
+import LogEntryForm from "./components/LogEntryForm";
 import StarIcon from "@mui/icons-material/Star";
 
 function App() {
-  const [logEntries, setLongEntries] = useState([]);
+  const [logs, setLongEntries] = useState([]);
   const [showPopup, setShowPopup] = useState({});
   const [addNewEntry, setAddNewEntry] = useState(null);
 
   //fetch logs from backend
   const getEntries = async () => {
-    const logEntries = await listLogEntries();
-    setLongEntries(logEntries);
-    console.log(logEntries);
+    const logs = await listLogEntries();
+    setLongEntries(logs);
+
+    console.log(logs);
   };
 
   useEffect(() => {
@@ -36,7 +36,7 @@ function App() {
         initialViewState={{
           longitude: 46,
           latitude: 17,
-          zoom: 2,
+          zoom: 4,
         }}
         style={{ width: "100vw", height: "100vh" }}
         // mapStyle="mapbox://styles/mapbox/streets-v9"
@@ -45,7 +45,7 @@ function App() {
         doubleClickZoom={false}
         onDblClick={showAddMarkerPopup}
       >
-        {logEntries.map((entry) => (
+        {logs.map((entry) => (
           <React.Fragment key={entry._id}>
             {/* markers on map */}
             <Marker

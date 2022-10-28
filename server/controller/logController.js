@@ -1,15 +1,13 @@
+const asyncHandler = require("express-async-handler");
+
 const Log = require("../models/logModel");
 const mongoose = require("mongoose");
 
 //GET all logs
-const getLogs = async (req, res) => {
-  try {
-    const logs = await Log.find();
-    res.status(200).json(logs);
-  } catch (err) {
-    console.error(err);
-  }
-};
+const getLogs = asyncHandler(async (req, res) => {
+  const logs = await Log.find();
+  res.status(200).json(logs);
+});
 
 //GET a single log
 const getSingleLog = async (req, res) => {
@@ -29,10 +27,9 @@ const getSingleLog = async (req, res) => {
 
 //POST a new log
 const addLog = async (req, res) => {
-  //console.log(req.body);
+  console.log(req.body);
   try {
     const userInput = req.body;
-
     const entryLog = await Log.create(userInput);
     res.status(200).json(entryLog);
   } catch (error) {
