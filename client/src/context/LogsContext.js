@@ -1,5 +1,6 @@
 import { createContext, useReducer } from "react";
 
+//create context
 export const LogsContext = createContext();
 
 // reducer function
@@ -25,8 +26,8 @@ export const LogsContextProvider = ({ children }) => {
     logs: null,
   });
   return (
-    <LogsContextProvider value={{ ...state, dispatch }}>
+    <LogsContext.Provider value={{ ...state, dispatch }}>
       {children}
-    </LogsContextProvider>
+    </LogsContext.Provider>
   );
 };

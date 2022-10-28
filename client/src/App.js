@@ -4,18 +4,19 @@ import listLogEntries from "./API";
 import MarkerRedSolid from "./asset/marker-red-solid.png";
 import LogEntryForm from "./components/LogEntryForm";
 import StarIcon from "@mui/icons-material/Star";
+import useLogsContext from "./hooks/useLogsContext";
 
 function App() {
-  const [logs, setLongEntries] = useState([]);
   const [showPopup, setShowPopup] = useState({});
   const [addNewEntry, setAddNewEntry] = useState(null);
+
+  const { logs, dispatch } = useLogsContext();
 
   //fetch logs from backend
   const getEntries = async () => {
     const logs = await listLogEntries();
-    setLongEntries(logs);
-
-    console.log(logs);
+    dispatch({ type: "GET_LOGS", payload: logs });
+    //console.log(logs);
   };
 
   useEffect(() => {
