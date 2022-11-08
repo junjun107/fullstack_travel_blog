@@ -1,6 +1,6 @@
 const API_URL = "http://localhost:5000";
 
-async function listLogEntries() {
+export async function listLogEntries() {
   try {
     const res = await fetch(`${API_URL}/api/logs`);
     return res.json();
@@ -8,5 +8,13 @@ async function listLogEntries() {
     console.log(error);
   }
 }
-
-export default listLogEntries;
+export async function createLogEntry(entry) {
+  const res = await fetch(`${API_URL}/api/logs`, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(entry),
+  });
+  return res.json();
+}

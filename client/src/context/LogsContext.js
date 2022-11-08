@@ -15,7 +15,11 @@ export const logsReducer = (state, action) => {
       return {
         logs: [action.payload, ...state.logs],
       };
-
+    case "SET_LOADING":
+      return {
+        ...state,
+        loading: false,
+      };
     default:
       return state;
   }
@@ -25,6 +29,7 @@ export const LogsContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(logsReducer, {
     logs: null,
   });
+
   return (
     <LogsContext.Provider value={{ ...state, dispatch }}>
       {children}

@@ -1,7 +1,7 @@
 import { LogsContext } from "../context/LogsContext";
 import { useContext } from "react";
 
-export const useLogsContext = () => {
+const useLogsContext = () => {
   const context = useContext(LogsContext);
 
   if (!context) {
@@ -9,3 +9,4 @@ export const useLogsContext = () => {
   }
   return context;
 };
+export default useLogsContext;
