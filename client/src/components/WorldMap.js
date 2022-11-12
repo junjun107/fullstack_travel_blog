@@ -19,12 +19,13 @@ const WorldMap = () => {
   };
   return (
     <div className="map">
-      <Map
+      <Map //Uncontrolled Map
         initialViewState={{
           longitude: 46,
           latitude: 17,
           zoom: 4,
         }}
+        mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
         style={{ width: "100vw", height: "100vh" }}
         // mapStyle="mapbox://styles/mapbox/streets-v9"
         // mapStyle="mapbox://styles/safak/cknndpyfq268f17p53nmpwira"
@@ -34,7 +35,9 @@ const WorldMap = () => {
         onDblClick={showAddMarkerPopup}
       >
         <LogList />
-        {/* addlocation is true, show a marker & a popup,if Spinner, it will go here */}
+
+        {/* addlocation is true, show a marker & a popup*/}
+
         {addNewEntryLocation && (
           <>
             <Marker
@@ -56,8 +59,9 @@ const WorldMap = () => {
                 <LogEntryForm
                   location={addNewEntryLocation}
                   onClose={() => {
+                    //close form
                     setAddNewEntryLocation(null);
-                  }} //close form
+                  }}
                 />
               </div>
             </Popup>

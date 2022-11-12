@@ -1,6 +1,6 @@
 import React from "react";
 import StarIcon from "@mui/icons-material/Star";
-import EditIcon from "@mui/icons-material/Edit";
+// import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import useLogsContext from "../hooks/useLogsContext";
 
@@ -16,9 +16,9 @@ const LogItem = ({ entry }) => {
     console.log(entry);
     deleteLog(entry._id);
   };
-  
+
   return (
-    <div className="popupLog" >
+    <div className="popupLog">
       <label htmlFor="">Place</label>
       <h3>{entry.title}</h3>
       <label htmlFor="">Rating</label>

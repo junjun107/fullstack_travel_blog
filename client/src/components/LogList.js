@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Marker, Popup } from "react-map-gl";
-import { listLogEntries } from "../API";
 import useLogsContext from "../hooks/useLogsContext";
 import MarkerRedSolid from "../asset/marker-red-solid.png";
 import LogItem from "./LogItem";
