@@ -4,36 +4,20 @@ import { listLogEntries } from "../API";
 import useLogsContext from "../hooks/useLogsContext";
 import MarkerRedSolid from "../asset/marker-red-solid.png";
 import LogItem from "./LogItem";
-import Spinner from "../asset/spinner.gif";
 
 const LogList = () => {
   const [showPopup, setShowPopup] = useState({});
 
-  // const [logs, setLogs] = useState(null);
-  const { logs, dispatch, isLoading } = useLogsContext();
+  const { logs } = useLogsContext();
 
-  useEffect(() => {
-    getEntries();
-  }, []);
-
-  //fetch logs from backend
-  const getEntries = async () => {
-    const logs = await listLogEntries();
-    console.log(logs);
-    dispatch({ type: "GET_LOGS", payload: logs });
-    dispatch({ type: "SET_LOADING" });
-    // setLogs(logs);
-  };
-
-  return isLoading ? (
-    <Spinner />
-  ) : (
+  return (
     <>
       {logs &&
         logs.map((entry) => (
-          <React.Fragment key={entry._id}>
+          <div key={entry._id}>
             {/* markers on map */}
             <Marker
+              // key={entry._id}
               longitude={entry.longitude}
               latitude={entry.latitude}
               anchor="bottom"
@@ -59,7 +43,7 @@ const LogList = () => {
                 <LogItem entry={entry} />
               </Popup>
             ) : null}
-          </React.Fragment>
+          </div>
         ))}
     </>
   );

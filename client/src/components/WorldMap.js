@@ -3,14 +3,16 @@ import Map, { Marker, Popup } from "react-map-gl";
 import MarkerRedSolid from "../asset/marker-red-solid.png";
 import LogEntryForm from "./LogEntryForm";
 import LogList from "./LogList";
+import useLogsContext from "../hooks/useLogsContext";
 
 const WorldMap = () => {
-  const [addNewEntry, setAddNewEntry] = useState(null);
+  const [addNewEntryLocation, setAddNewEntryLocation] = useState(null);
+  const { logs, dispatch, isLoading } = useLogsContext();
 
   const showAddMarkerPopup = (e) => {
     //console.log(e.lngLat);
     const { lng, lat } = e.lngLat;
-    setAddNewEntry({
+    setAddNewEntryLocation({
       longitude: lng,
       latitude: lat,
     });
@@ -32,26 +34,30 @@ const WorldMap = () => {
         onDblClick={showAddMarkerPopup}
       >
         <LogList />
-
-        {addNewEntry && (
+        {/* addlocation is true, show a marker & a popup,if Spinner, it will go here */}
+        {addNewEntryLocation && (
           <>
             <Marker
-              latitude={addNewEntry.latitude}
-              longitude={addNewEntry.longitude}
+              latitude={addNewEntryLocation.latitude}
+              longitude={addNewEntryLocation.longitude}
             >
               <img src={MarkerRedSolid} className="marker" alt="pin" />
             </Marker>
             <Popup
-              longitude={addNewEntry.longitude}
-              latitude={addNewEntry.latitude}
+              longitude={addNewEntryLocation.longitude}
+              latitude={addNewEntryLocation.latitude}
               anchor="top-left"
               closeOnClick={false} //popup stays open when map is clicked
-              onClose={() => setAddNewEntry(null)}
+              onClose={() => {
+                setAddNewEntryLocation(null);
+              }}
             >
               <div className="formContainer">
                 <LogEntryForm
-                  location={addNewEntry}
-                  onClose={() => setAddNewEntry(null)}
+                  location={addNewEntryLocation}
+                  onClose={() => {
+                    setAddNewEntryLocation(null);
+                  }} //close form
                 />
               </div>
             </Popup>

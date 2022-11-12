@@ -1,37 +1,63 @@
-import { createContext, useReducer } from "react";
+import { createContext, useState, useEffect } from "react";
 
 //create context
 export const LogsContext = createContext();
 
-// reducer function
-export const logsReducer = (state, action) => {
-  switch (action.type) {
-    case "GET_LOGS":
-      return {
-        logs: action.payload,
-      };
-
-    case "CREATE_LOG":
-      return {
-        logs: [action.payload, ...state.logs],
-      };
-    case "SET_LOADING":
-      return {
-        ...state,
-        loading: false,
-      };
-    default:
-      return state;
-  }
-};
-
 export const LogsContextProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(logsReducer, {
-    logs: null,
-  });
+  const [logs, setLogs] = useState([]);
+  // const [logEdit, setLogEdit] = useState({
+  //   entry: {},
+  //   edit: false,
+  // });
+
+  const API_URL = "http://localhost:5000";
+
+  useEffect(() => {
+    fetchLogs();
+  }, [logs]);
+
+  //get logs from db
+  const fetchLogs = async () => {
+    const res = await fetch(`${API_URL}/api/logs`);
+    const data = await res.json();
+    setLogs(data);
+  };
+
+  //add a log
+  const addLog = async (newLog) => {
+    const res = await fetch(`${API_URL}/api/logs`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newLog),
+    });
+    const data = await res.json();
+    setLogs([data, ...logs]);
+  };
+
+  // Edit a log
+  // const editLog = async (entry) => {
+  //   setLogEdit({
+  //     entry,
+  //     edit: true,
+  //   });
+  // };
+
+  // Delete a log
+  const deleteLog = async (id) => {
+    await fetch(`${API_URL}/api/logs/${id}`, { method: "DELETE" });
+    setLogs(logs.filter((item) => item.id !== id));
+  };
 
   return (
-    <LogsContext.Provider value={{ ...state, dispatch }}>
+    <LogsContext.Provider
+      value={{
+        logs,
+        addLog,
+        deleteLog, //to form
+      }}
+    >
       {children}
     </LogsContext.Provider>
   );
