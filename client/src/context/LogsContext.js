@@ -14,7 +14,7 @@ export const LogsContextProvider = ({ children }) => {
 
   useEffect(() => {
     fetchLogs();
-  }, [logs]);
+  }, []);
 
   //get logs from db
   const fetchLogs = async () => {
@@ -47,7 +47,7 @@ export const LogsContextProvider = ({ children }) => {
   // Delete a log
   const deleteLog = async (id) => {
     await fetch(`${API_URL}/api/logs/${id}`, { method: "DELETE" });
-    setLogs(logs.filter((item) => item.id !== id));
+    setLogs(logs.filter((item) => item._id !== id));
   };
 
   return (

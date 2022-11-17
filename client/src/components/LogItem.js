@@ -13,24 +13,27 @@ const LogItem = ({ entry }) => {
   //   editLog(entry);
   // };
   const handleDelete = (id) => {
-    console.log(entry);
     deleteLog(entry._id);
   };
 
   return (
-    <div className="popupLog">
+    <div className="card">
       <label htmlFor="">Place</label>
-      <h3>{entry.title}</h3>
+      <h4 className="place">{entry.title}</h4>
+
       <label htmlFor="">Rating</label>
       <div className="stars">
-        {Array(entry.rating).fill(<StarIcon className="star" />)}
+        {Array.from(Array(entry.rating), (_, i) => (
+          <StarIcon className="star" key={i} />
+        ))}
       </div>
 
       <label htmlFor="">Notes</label>
-      <p className="description">{entry.description}</p>
+      <p className="desc">{entry.description}</p>
       {entry.image && (
         <img src={entry.image} alt={entry.title} style={{ width: "300px" }} />
       )}
+      <span className="date">{entry.createdAt}</span>
       <div className="btn_container">
         {/* <button onClick={handleEdit}>
           <EditIcon />

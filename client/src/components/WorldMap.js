@@ -3,11 +3,9 @@ import Map, { Marker, Popup } from "react-map-gl";
 import MarkerRedSolid from "../asset/marker-red-solid.png";
 import LogEntryForm from "./LogEntryForm";
 import LogList from "./LogList";
-import useLogsContext from "../hooks/useLogsContext";
 
 const WorldMap = () => {
-  const [addNewEntryLocation, setAddNewEntryLocation] = useState(null);
-  const { logs, dispatch, isLoading } = useLogsContext();
+  const [addNewEntryLocation, setAddNewEntryLocation] = useState(null);//default is nothing, when set it, show a marker there
 
   const showAddMarkerPopup = (e) => {
     //console.log(e.lngLat);
@@ -23,7 +21,7 @@ const WorldMap = () => {
         initialViewState={{
           longitude: 46,
           latitude: 17,
-          zoom: 4,
+          zoom: 2,
         }}
         mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
         style={{ width: "100vw", height: "100vh" }}
@@ -34,10 +32,10 @@ const WorldMap = () => {
         doubleClickZoom={false}
         onDblClick={showAddMarkerPopup}
       >
+        {/* map logs over logItem in popup */}
         <LogList />
 
-        {/* addlocation is true, show a marker & a popup*/}
-
+      {/* if addlocation is true, show a marker & a form in popup to add new location  */}
         {addNewEntryLocation && (
           <>
             <Marker

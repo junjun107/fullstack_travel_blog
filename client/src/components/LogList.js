@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Marker, Popup } from "react-map-gl";
 import useLogsContext from "../hooks/useLogsContext";
 import MarkerRedSolid from "../asset/marker-red-solid.png";
@@ -6,17 +6,15 @@ import LogItem from "./LogItem";
 
 const LogList = () => {
   const [showPopup, setShowPopup] = useState({});
-
   const { logs } = useLogsContext();
 
   return (
     <>
+      {/* map logs array with Marker component */}
       {logs &&
         logs.map((entry) => (
           <div key={entry._id}>
-            {/* markers on map */}
             <Marker
-              // key={entry._id}
               longitude={entry.longitude}
               latitude={entry.latitude}
               anchor="bottom"
@@ -37,7 +35,7 @@ const LogList = () => {
                 anchor="top-left"
                 closeOnMove={true} // popup closes when map moves
                 closeOnClick={false} //popup stays open when map is clicked
-                onClose={() => setShowPopup({})}
+                // onClose={() => setShowPopup({})}
               >
                 <LogItem entry={entry} />
               </Popup>

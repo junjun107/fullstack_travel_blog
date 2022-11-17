@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-
+import { useState } from "react";
 import useLogsContext from "../hooks/useLogsContext";
 
 const LogEntryForm = ({ location, onClose }) => {
