@@ -1,31 +1,162 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
+/* Box sizing rules */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  background-color: #f5eddc;
 }
-/* .mapboxgl-popup-content {
-  width: max-content;
-  padding: 1rem;
-  border-radius: 10px;
-  font: 400 15px/22px "Source Sans Pro", "Helvetica Neue", sans-serif;
-  border: 2px solid blue;
-} */
 
-label {
-  color: #c83c2d;
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
 }
-img {
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
   max-width: 100%;
-  height: auto;
   display: block;
 }
 
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* -----------custom css-------------- */
+* {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+}
+.mapboxgl-popup-close-button {
+  font-size: 25px;
+}
+
+/* ---card--- */
+
+label {
+  width: max-content;
+  color: #1746a2;
+  font-size: 14px;
+  font-weight: 300;
+  /* border-bottom: 0.5px solid #1746a2; */
+  margin: 5px 0;
+  font-weight: 500;
+}
+.card label {
+  width: max-content;
+  color: #1746a2;
+  font-size: 14px;
+  font-weight: 300;
+  border-bottom: 0.5px solid #1746a2;
+  margin: 5px 0;
+  font-weight: 500;
+}
+.card {
+  width: 300px;
+  /* height: 400px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-left: 10px;
+}
+
+.star {
+  color: #ff3d47;
+}
+.MuiRating-root {
+  border-bottom: none;
+}
+.desc {
+  max-width: 250px;
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+.date {
+  padding-top: 5px;
+}
+.deleteBtn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border: 0;
+  border-radius: 0 3px 0 0;
+  cursor: pointer;
+  margin: 0 5px 5px 0;
+}
+
+/* ---form--- */
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: rgb(88, 87, 87);
+}
+input {
+  border: none;
+  border-bottom: 1px solid gray;
+}
+
+input::placeholder,
+textarea::placeholder {
+  font-size: 12px;
+  color: rgb(185, 184, 184);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+textarea {
+  border: none;
+  border-bottom: 1px solid gray;
+}
+.submitBtn {
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
+  background-color: tomato;
+  cursor: pointer;
+  margin: 10px 0 5px 0;
+}
+/* -------landing page------- */
 .home {
   position: relative;
 }
@@ -83,94 +214,4 @@ img {
 .home_btn:active {
   box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6),
     inset 2px 2px 3px rgba(0, 0, 0, 0.6);
-}
-
-.map {
-  height: "100vh";
-  width: "100%";
-}
-.marker {
-  display: block;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  padding: 0;
-  height: 50px;
-  width: 40px;
-}
-.stars {
-  padding: 8px 0;
-}
-
-.star {
-  color: gold;
-}
-.description {
-  font-size: 14px;
-}
-/* .popupLog {
-  width: 40vw;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  border: 5px solid rgb(255, 106, 0);
-}
-.popupLog img {
-  height: 50%;
-  width: 50%;
-  text-align: center;
-  margin: 0 auto;
-  display: block;
-} */
-
-/* -------- form --------------- */
-.formContainer {
-  border: 2px solid red;
-  /* width: 100%; */
-  width: 20vw;
-  padding: 10px 15px;
-  justify-content: center;
-  align-items: center;
-}
-/* .formContainer img {
-  height: 200px;
-  width: auto;
-  text-align: center;
-  margin: 0 auto;
-  display: block;
-} */
-
-.entryFrom label,
-.entryForm input,
-.entryForm textarea,
-.entryForm button {
-  font-size: 1.25rem;
-  margin: 0.5rem 0;
-  display: block;
-  width: 100%;
-}
-
-.submitBtn {
-  /* border: blueviolet 3px dotted; */
-  display: block;
-  width: 100%;
-  padding: 10px 15px;
-  background-color: #ca5042;
-  border-radius: 5px;
-  border-style: none;
-  color: #ffffff;
-  cursor: pointer;
-}
-
-.submitBtn:hover,
-.submitBtn:focus {
-  background-color: #dd5353;
-}
-.card {
-  width: 250px;
-  height: 250px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
 }

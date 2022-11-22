@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Map, { Marker, Popup } from "react-map-gl";
 import MarkerRedSolid from "../asset/marker-red-solid.png";
+import PlaceIcon from "@mui/icons-material/Place";
 import LogEntryForm from "./LogEntryForm";
 import LogList from "./LogList";
 
 const WorldMap = () => {
-  const [addNewEntryLocation, setAddNewEntryLocation] = useState(null);//default is nothing, when set it, show a marker there
+  const [addNewEntryLocation, setAddNewEntryLocation] = useState(null); //default is nothing, when set it, show a marker there
 
   const showAddMarkerPopup = (e) => {
     //console.log(e.lngLat);
@@ -26,23 +27,31 @@ const WorldMap = () => {
         mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
         style={{ width: "100vw", height: "100vh" }}
         // mapStyle="mapbox://styles/mapbox/streets-v9"
-        // mapStyle="mapbox://styles/safak/cknndpyfq268f17p53nmpwira"
-        mapStyle="mapbox://styles/junjun107/cl9n46hzi001415mu6coxy27i"
+        mapStyle="mapbox://styles/safak/cknndpyfq268f17p53nmpwira"
+        // mapStyle="mapbox://styles/junjun107/cl9n46hzi001415mu6coxy27i"
         attributionControl={false}
+        dragRotate={false}
         doubleClickZoom={false}
         onDblClick={showAddMarkerPopup}
       >
-        {/* map logs over logItem in popup */}
+        {/* list of logs map over logItem with Markers and Popup */}
         <LogList />
 
-      {/* if addlocation is true, show a marker & a form in popup to add new location  */}
+        {/* if addlocation is true, show a marker & a form in popup to add new location  */}
         {addNewEntryLocation && (
           <>
             <Marker
               latitude={addNewEntryLocation.latitude}
               longitude={addNewEntryLocation.longitude}
             >
-              <img src={MarkerRedSolid} className="marker" alt="pin" />
+              {/* <img src={MarkerRedSolid} className="marker" alt="pin" /> */}
+              <PlaceIcon
+                style={{
+                  fontSize: "60px",
+                  color: "#DC3535",
+                  cursor: "pointer",
+                }}
+              />
             </Marker>
             <Popup
               longitude={addNewEntryLocation.longitude}
@@ -53,7 +62,7 @@ const WorldMap = () => {
                 setAddNewEntryLocation(null);
               }}
             >
-              <div className="formContainer">
+              <div>
                 <LogEntryForm
                   location={addNewEntryLocation}
                   onClose={() => {

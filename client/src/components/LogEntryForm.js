@@ -1,5 +1,18 @@
 import { useState } from "react";
 import useLogsContext from "../hooks/useLogsContext";
+import Rating from "@mui/material/Rating";
+import { styled } from "@mui/material/styles";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+
+const StyledRating = styled(Rating)({
+  "& .MuiRating-iconFilled": {
+    color: "#ff6d75",
+  },
+  "& .MuiRating-iconHover": {
+    color: "#ff3d47",
+  },
+});
 
 const LogEntryForm = ({ location, onClose }) => {
   const [loading, setLoading] = useState(false); //set loading to true when making request, when done set to false
@@ -52,12 +65,19 @@ const LogEntryForm = ({ location, onClose }) => {
       />
 
       <label htmlFor="rating">Rating</label>
-      <input
-        id="rating"
-        name="rating"
-        type="number"
+
+      <StyledRating
+        className="heart_rating"
+        name="customized-color"
+        defaultValue={1}
+        getLabelText={(value) => `${value} Heart${value !== 1 ? "s" : ""}`}
+        icon={<FavoriteIcon />}
+        emptyIcon={<FavoriteBorderIcon />}
         value={rating}
-        onChange={(e) => setRating(e.target.value)}
+        onChange={(event, newValue) => {
+          console.log(newValue);
+          setRating(newValue);
+        }}
       />
 
       <label htmlFor="comment">Description</label>
