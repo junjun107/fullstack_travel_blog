@@ -10,7 +10,7 @@ export const LogsContextProvider = ({ children }) => {
   //   edit: false,
   // });
 
-  const API_URL = "http://localhost:5000";
+  const API_URL = "http://localhost:5001";
 
   useEffect(() => {
     fetchLogs();

@@ -19,7 +19,8 @@ const LogEntryForm = ({ location, onClose }) => {
   const [title, setTitle] = useState("");
   const [rating, setRating] = useState(0);
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+  // const [image, setImage] = useState("");
+  const [img, setImg] = useState("");
 
   const { addLog } = useLogsContext();
 
@@ -45,7 +46,7 @@ const LogEntryForm = ({ location, onClose }) => {
       title,
       rating,
       description,
-      image,
+      // image,
     };
     // console.log(data);
     addLog(data);
@@ -91,12 +92,13 @@ const LogEntryForm = ({ location, onClose }) => {
       ></textarea>
 
       <label htmlFor="image">Image</label>
-      <input
+      {/* <input
         id="image"
         name="image"
         value={image}
         onChange={(e) => setImage(e.target.value)}
-      />
+      /> */}
+      <button className="cloudinary-btn">Upload</button>
       <button type="submit" className="submitBtn" disabled={loading}>
         ADD
       </button>
