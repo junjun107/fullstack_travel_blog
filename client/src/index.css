@@ -156,6 +156,9 @@ textarea {
   cursor: pointer;
   margin: 10px 0 5px 0;
 }
+#image {
+  border: none;
+}
 /* -------landing page------- */
 .home {
   position: relative;

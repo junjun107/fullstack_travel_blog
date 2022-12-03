@@ -4,6 +4,7 @@ import Rating from "@mui/material/Rating";
 import { styled } from "@mui/material/styles";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import Input from "@mui/material/Input";
 
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
@@ -19,11 +20,12 @@ const LogEntryForm = ({ location, onClose }) => {
   const [title, setTitle] = useState("");
   const [rating, setRating] = useState(0);
   const [description, setDescription] = useState("");
-  // const [image, setImage] = useState("");
+  const [image, setImage] = useState("");
   const [img, setImg] = useState("");
 
   const { addLog } = useLogsContext();
-
+  const cloud_api_key = "141442136837578";
+  const cloud_name = "dhhiphscp";
   // //what do we want to happen when edit btn is clicked
   // //aka what happens when edit state changes from false to true
   // // we want the from to get title,rating,comments,image from this log
@@ -92,13 +94,14 @@ const LogEntryForm = ({ location, onClose }) => {
       ></textarea>
 
       <label htmlFor="image">Image</label>
-      {/* <input
+      <Input
         id="image"
         name="image"
         value={image}
+        type="text"
         onChange={(e) => setImage(e.target.value)}
-      /> */}
-      <button className="cloudinary-btn">Upload</button>
+      />
+
       <button type="submit" className="submitBtn" disabled={loading}>
         ADD
       </button>

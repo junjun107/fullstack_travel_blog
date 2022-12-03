@@ -1,5 +1,5 @@
+// handle errors in Express async await request
 const asyncHandler = require("express-async-handler");
-
 const Log = require("../models/logModel");
 const mongoose = require("mongoose");
 

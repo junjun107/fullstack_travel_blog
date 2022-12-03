@@ -31,6 +31,10 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/api/logs", require("../routes/logsRoute"));
+app.use("/api/users", require("../routes/usersRoute"));
+// app.get("/api/users", (req, res) => {
+//   res.send("user created");
+// });
 
 //error handling middleware
 app.use(errorHandler);
