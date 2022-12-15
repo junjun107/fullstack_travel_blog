@@ -5,7 +5,7 @@ const cors = require("cors");
 const colors = require("colors");
 const path = require("path");
 const connectDB = require("./config/db");
-const { errorHandler } = require("../middleware/errorMiddleware");
+const { errorHandler } = require("./middleware/errorMiddleware");
 
 const PORT = process.env.PORT || 5001;
 
@@ -31,8 +31,8 @@ app.get("/", (req, res) => {
 });
 
 // Routes
-app.use("/api/logs", require("../routes/logsRoute"));
-app.use("/api/users", require("../routes/usersRoute"));
+app.use("/api/logs", require("./routes/logsRoute"));
+app.use("/api/users", require("./routes/usersRoute"));
 // app.get("/api/users", (req, res) => {
 //   res.send("user created");
 // });
