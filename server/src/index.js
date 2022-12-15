@@ -19,6 +19,9 @@ app.use(
 ///middlewares
 app.use(express.json());
 
+//Serving Frontend
+app.use(express.static(path.join(__dirname, "./client/build")));
+
 // Routes
 app.get("/", (req, res) => {
   res.status(200).json({
