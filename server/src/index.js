@@ -8,9 +8,6 @@ const { errorHandler } = require("../middleware/errorMiddleware");
 
 const PORT = process.env.PORT || 5001;
 
-//connect to db
-connectDB();
-
 const app = express();
 
 app.use(morgan("common"));
@@ -39,7 +36,11 @@ app.use("/api/users", require("../routes/usersRoute"));
 //error handling middleware
 app.use(errorHandler);
 
-app.listen(
-  PORT,
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
-);
+// MongoDB connects before listening to PORT
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(
+      `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
+    );
+  });
+});
