@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const dotenv = require("dotenv").config();
 const cors = require("cors");
 const colors = require("colors");
+const path = require("path");
 const connectDB = require("../config/db");
 const { errorHandler } = require("../middleware/errorMiddleware");
 
