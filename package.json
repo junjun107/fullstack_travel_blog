@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cd server && node index.js",
+    "start": "node server/index.js",
     "dev": "nodemon server/index.js",
     "lint": "eslint src/"
   },
