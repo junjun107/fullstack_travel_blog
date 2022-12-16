@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server/index.js",
     "dev": "nodemon server/index.js",
-    "lint": "eslint src/"
+    "lint": "eslint ./client",
+    "lint:fix": "eslint --fix"
   },
   "author": "",
   "license": "ISC",

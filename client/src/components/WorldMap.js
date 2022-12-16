@@ -16,6 +16,7 @@ const WorldMap = () => {
       latitude: lat,
     });
   };
+  console.log(process.env.REACT_APP_MAPBOX_ACCESS_TOKEN);
   return (
     <div className="map">
       <Map //Uncontrolled Map
