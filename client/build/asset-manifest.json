@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4a7f9891.css",
+    "main.js": "/static/js/main.9ae07076.js",
+    "static/js/483.421b3021.chunk.js": "/static/js/483.421b3021.chunk.js",
+    "static/media/marker-red-solid.png": "/static/media/marker-red-solid.c339b4aedb5585ed2b4e.png",
+    "index.html": "/index.html",
+    "main.4a7f9891.css.map": "/static/css/main.4a7f9891.css.map",
+    "main.9ae07076.js.map": "/static/js/main.9ae07076.js.map",
+    "483.421b3021.chunk.js.map": "/static/js/483.421b3021.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4a7f9891.css",
+    "static/js/main.9ae07076.js"
+  ]
+}
