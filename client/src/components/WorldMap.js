@@ -5,8 +5,10 @@ import Map, { Marker, Popup } from "react-map-gl";
 import PlaceIcon from "@mui/icons-material/Place";
 import LogEntryForm from "./LogEntryForm";
 import LogList from "./LogList";
-mapboxgl.workerClass =
-  require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
+
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass =require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 const WorldMap = () => {
   const [addNewEntryLocation, setAddNewEntryLocation] = useState(null); //default is nothing, when set it, show a marker there
