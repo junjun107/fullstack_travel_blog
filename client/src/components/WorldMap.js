@@ -6,6 +6,7 @@ import PlaceIcon from "@mui/icons-material/Place";
 import LogEntryForm from "./LogEntryForm";
 import LogList from "./LogList";
 
+//prevent map-box to support older browser(downgrade)
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 mapboxgl.workerClass =require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
@@ -21,7 +22,6 @@ const WorldMap = () => {
       latitude: lat,
     });
   };
-  console.log(process.env.REACT_APP_MAPBOX_ACCESS_TOKEN);
   return (
     <div className="map">
       <Map //Uncontrolled Map
