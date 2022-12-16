@@ -18,14 +18,14 @@ export const LogsContextProvider = ({ children }) => {
 
   //get logs from db
   const fetchLogs = async () => {
-    const res = await fetch(`${API_URL}/api/logs`);
+    const res = await fetch("/api/logs");
     const data = await res.json();
     setLogs(data);
   };
 
   //add a log
   const addLog = async (newLog) => {
-    const res = await fetch(`${API_URL}/api/logs`, {
+    const res = await fetch(`/api/logs`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export const LogsContextProvider = ({ children }) => {
 
   // Delete a log
   const deleteLog = async (id) => {
-    await fetch(`${API_URL}/api/logs/${id}`, { method: "DELETE" });
+    await fetch(`/api/logs/${id}`, { method: "DELETE" });
     setLogs(logs.filter((item) => item._id !== id));
   };
 
