@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import mapboxgl from "mapbox-gl";
 import Map, { Marker, Popup } from "react-map-gl";
-import MarkerRedSolid from "../asset/marker-red-solid.png";
+// import MarkerRedSolid from "../asset/marker-red-solid.png";
 import PlaceIcon from "@mui/icons-material/Place";
 import LogEntryForm from "./LogEntryForm";
 import LogList from "./LogList";
+mapboxgl.workerClass =
+  require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 const WorldMap = () => {
   const [addNewEntryLocation, setAddNewEntryLocation] = useState(null); //default is nothing, when set it, show a marker there
@@ -27,9 +30,7 @@ const WorldMap = () => {
         }}
         mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
         style={{ width: "100vw", height: "100vh" }}
-        // mapStyle="mapbox://styles/mapbox/streets-v9"
         mapStyle="mapbox://styles/safak/cknndpyfq268f17p53nmpwira"
-        // mapStyle="mapbox://styles/junjun107/cl9n46hzi001415mu6coxy27i"
         attributionControl={false}
         dragRotate={false}
         doubleClickZoom={false}
