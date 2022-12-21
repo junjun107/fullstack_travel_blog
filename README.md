@@ -80,3 +80,7 @@ const getEntries = async () => {
 
 Cors Origin Error
 Cores Origin url in the backend doesn't match the frontend url localhost:3000
+
+production build error "x is not defined" 
+Map from mapbox api didn't show up during production. Reason to that is because the JavaScript bundle is incompatible with some Babel transforms because of the way it shares code between the main thread and Web Worker. 
+To fix that, I explicitly disable transpiling of the Mapbox GL JS bundle.

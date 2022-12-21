@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import mapboxgl from "mapbox-gl";
 import Map, { Marker, Popup } from "react-map-gl";
-// import MarkerRedSolid from "../asset/marker-red-solid.png";
 import PlaceIcon from "@mui/icons-material/Place";
 import LogEntryForm from "./LogEntryForm";
 import LogList from "./LogList";
