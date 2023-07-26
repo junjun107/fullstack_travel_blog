@@ -1,9 +1,20 @@
 import React, { useState } from "react";
+import "mapbox-gl/dist/mapbox-gl.css";
 import mapboxgl from "mapbox-gl";
 import Map, { Marker, Popup } from "react-map-gl";
 import PlaceIcon from "@mui/icons-material/Place";
 import LogEntryForm from "./LogEntryForm";
 import LogList from "./LogList";
+import {
+  Grid,
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Link,
+  Paper,
+  FormControlLabel,
+} from "@mui/material";
 
 //prevent map-box to support older browser(downgrade)
 // @ts-ignore
@@ -22,63 +33,149 @@ const WorldMap = () => {
     });
   };
   return (
-    <div className="map">
-      <Map //Uncontrolled Map
-        initialViewState={{
-          longitude: 46,
-          latitude: 17,
-          zoom: 2,
+    // parent grid container
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid
+        container
+        // component="main"
+        justifyContent="center"
+        sx={{
+          height: "100vh",
         }}
-        mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
-        style={{ width: "100vw", height: "100vh" }}
-        mapStyle="mapbox://styles/safak/cknndpyfq268f17p53nmpwira"
-        attributionControl={false}
-        dragRotate={false}
-        doubleClickZoom={false}
-        onDblClick={showAddMarkerPopup}
       >
-        {/* list of logs map over logItem with Markers and Popup */}
-        <LogList />
+        <Grid
+          item
+          xs={12}
+          sm={8}
+          md={6}
+          component={Paper}
+          elevation={6}
+          square
+          sx={{ m: "auto" }}
+        >
+          <Box
+            sx={{
+              my: 2,
+              mx: 4,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            {/* <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+              <LockOutlinedIcon />
+            </Avatar> */}
 
-        {/* if addlocation is true, show a marker & a form in popup to add new location  */}
-        {addNewEntryLocation && (
-          <>
-            <Marker
-              latitude={addNewEntryLocation.latitude}
-              longitude={addNewEntryLocation.longitude}
+            {/* <Typography component="h1" variant="h6">
+              Sign in
+            </Typography>
+            <Box
+              component="form"
+              noValidate
+              // onSubmit={handleSubmit}
+              sx={{ mt: 1 }}
             >
-              {/* <img src={MarkerRedSolid} className="marker" alt="pin" /> */}
-              <PlaceIcon
-                style={{
-                  fontSize: "60px",
-                  color: "#DC3535",
-                  cursor: "pointer",
-                }}
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
               />
-            </Marker>
-            <Popup
-              longitude={addNewEntryLocation.longitude}
-              latitude={addNewEntryLocation.latitude}
-              anchor="top-left"
-              closeOnClick={false} //popup stays open when map is clicked
-              onClose={() => {
-                setAddNewEntryLocation(null);
-              }}
-            >
-              <div>
-                <LogEntryForm
-                  location={addNewEntryLocation}
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link href="#" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box> */}
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} sm={4} md={6}>
+          <Map //Uncontrolled Map
+            initialViewState={{
+              longitude: 46,
+              latitude: 17,
+              zoom: 2,
+            }}
+            style={{ width: 800, height: "100%" }}
+            mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
+            mapStyle="mapbox://styles/junjun107/clk32th26004l01rj7pqp0uu1"
+            attributionControl={false}
+            dragRotate={false}
+            doubleClickZoom={false}
+            onDblClick={showAddMarkerPopup}
+          >
+            <LogList />
+
+            {addNewEntryLocation && (
+              <>
+                <Marker
+                  latitude={addNewEntryLocation.latitude}
+                  longitude={addNewEntryLocation.longitude}
+                >
+                  <PlaceIcon
+                    style={{
+                      fontSize: "60px",
+                      color: "#DC3535",
+                      cursor: "pointer",
+                    }}
+                  />
+                </Marker>
+                <Popup
+                  longitude={addNewEntryLocation.longitude}
+                  latitude={addNewEntryLocation.latitude}
+                  anchor="top-left"
+                  closeOnClick={false} //popup stays open when map is clicked
                   onClose={() => {
-                    //close form
                     setAddNewEntryLocation(null);
                   }}
-                />
-              </div>
-            </Popup>
-          </>
-        )}
-      </Map>
-    </div>
+                >
+                  <div>
+                    <LogEntryForm
+                      location={addNewEntryLocation}
+                      onClose={() => {
+                        //close form
+                        setAddNewEntryLocation(null);
+                      }}
+                    />
+                  </div>
+                </Popup>
+              </>
+            )}
+          </Map>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 
