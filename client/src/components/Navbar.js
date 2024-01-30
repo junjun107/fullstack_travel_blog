@@ -67,20 +67,25 @@ const Navbar = () => {
 
   return (
     <div>
-      <AppBar position="sticky">
+      <AppBar
+        position="sticky"
+        elevation={0}
+        sx={(theme) => ({
+          backgroundColor: theme.palette.primary.contrastText,
+        })}
+      >
         <Toolbar>
-          {/* <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            LOGO
-          </Typography> */}
           <ListItemButton component={Link} to="/">
-            <ListItemText primary="LOGO" />
+            {/* <ListItemText primary="LOGO" /> */}
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, color: "text.secondary" }}
+            >
+              News
+            </Typography>
           </ListItemButton>
-          <IconButton
-            edge="end"
-            color="inherit"
-            aria-label="menu"
-            onClick={toggleDrawer(true)}
-          >
+          <IconButton edge="end" aria-label="menu" onClick={toggleDrawer(true)}>
             <MenuIcon />
           </IconButton>
         </Toolbar>

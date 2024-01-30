@@ -8,8 +8,6 @@ import useLogsContext from "../hooks/useLogsContext";
 import LogCard from "./LogCard";
 import LogEntryForm from "./LogEntryForm";
 import LogList from "./LogList";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
 
 // for react-map-gl
 import "mapbox-gl/dist/mapbox-gl.css";
