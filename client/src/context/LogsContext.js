@@ -1,39 +1,73 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useReducer } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 
-//create context
+// //create context
 export const LogsContext = createContext();
 
-export const LogsContextProvider = ({ children }) => {
-  const [logs, setLogs] = useState([]);
-  // const [logEdit, setLogEdit] = useState({
-  //   entry: {},
-  //   edit: false,
-  // });
+// export const logsReducer = (state, action) => {
 
-  const API_URL = "http://localhost:5001";
+//   switch (action.type) {
+//     case "GET_LOGS":
+//       return {
+//         logs: action.payload,
+//       };
+//     case "ADD_Log":
+//       return {
+//         logs: [action.payload, ...state.logs],
+//       };
+
+//     default:
+//       return state;
+//   }
+// };
+
+export const LogsContextProvider = ({ children }) => {
+  //   const [state, dispatch] = useReducer(logsReducer, { logs: null });
+
+  const [logs, setLogs] = useState([]);
+  const [logEdit, setLogEdit] = useState({
+    entry: {},
+    edit: false,
+  });
+  const { user } = useAuthContext();
 
   useEffect(() => {
-    fetchLogs();
-  }, []);
+    if (user) {
+      fetchLogs();
+    }
+  }, [user]);
 
   //get logs from db
   const fetchLogs = async () => {
-    const res = await fetch("/api/logs");
+    const res = await fetch("http://localhost:5001/api/logs", {
+      headers: { Authorization: `Bearer ${user.token}` },
+    });
+
     const data = await res.json();
     setLogs(data);
   };
 
   //add a log
   const addLog = async (newLog) => {
-    const res = await fetch(`/api/logs`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newLog),
-    });
+    if (!user) {
+      return;
+    }
+
+    const res = await fetch(
+      `http://localhost:5001/api/logs?email=${user.email}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify(newLog),
+      }
+    );
     const data = await res.json();
-    setLogs([data, ...logs]);
+    setLogs((prevLogs) => {
+      return [data, ...prevLogs];
+    });
   };
 
   // Edit a log
@@ -46,6 +80,9 @@ export const LogsContextProvider = ({ children }) => {
 
   // Delete a log
   const deleteLog = async (id) => {
+    if (!user) {
+      return;
+    }
     await fetch(`/api/logs/${id}`, { method: "DELETE" });
     setLogs(logs.filter((item) => item._id !== id));
   };
@@ -55,7 +92,7 @@ export const LogsContextProvider = ({ children }) => {
       value={{
         logs,
         addLog,
-        deleteLog, //to form
+        deleteLog,
       }}
     >
       {children}

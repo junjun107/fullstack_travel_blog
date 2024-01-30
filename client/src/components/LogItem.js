@@ -32,7 +32,7 @@ const LogItem = ({ entry }) => {
           <StarIcon className="star" key={i} />
         ))} */}
         {Array.from(Array(entry.rating), (_, i) => (
-          <FavoriteIcon key={i} className="star" />
+          <StarIcon key={i} className="star" />
         ))}
       </div>
 

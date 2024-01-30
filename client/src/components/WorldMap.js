@@ -1,126 +1,59 @@
-import React, { useState } from "react";
-import "mapbox-gl/dist/mapbox-gl.css";
-import mapboxgl from "mapbox-gl";
-import Map, { Marker, Popup } from "react-map-gl";
 import PlaceIcon from "@mui/icons-material/Place";
+import { Box, Grid } from "@mui/material";
+// import "mapbox-gl/dist/mapbox-gl.css";
+import mapboxgl from "mapbox-gl";
+import React, { useState } from "react";
+import Map, { Marker, Popup } from "react-map-gl";
+import useLogsContext from "../hooks/useLogsContext";
+import LogCard from "./LogCard";
 import LogEntryForm from "./LogEntryForm";
 import LogList from "./LogList";
-import {
-  Grid,
-  Box,
-  TextField,
-  Button,
-  Typography,
-  Link,
-  Paper,
-  FormControlLabel,
-} from "@mui/material";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
 
+// for react-map-gl
+import "mapbox-gl/dist/mapbox-gl.css";
 //prevent map-box to support older browser(downgrade)
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
-mapboxgl.workerClass =require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
+// mapboxgl.workerClass =
+//   require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 const WorldMap = () => {
-  const [addNewEntryLocation, setAddNewEntryLocation] = useState(null); //default is nothing, when set it, show a marker there
+  const [location, setLocation] = useState(null);
+
+  const { logs } = useLogsContext();
 
   const showAddMarkerPopup = (e) => {
-    //console.log(e.lngLat);
     const { lng, lat } = e.lngLat;
-    setAddNewEntryLocation({
-      longitude: lng,
-      latitude: lat,
+    const arr = [lng, lat];
+    const ll = mapboxgl.LngLat.convert(arr);
+    console.log(ll);
+    setLocation({
+      longitude: ll.lng,
+      latitude: ll.lat,
     });
   };
+  console.log(logs);
   return (
-    // parent grid container
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, m: 2 }}>
       <Grid
         container
-        // component="main"
+        component="main"
         justifyContent="center"
         sx={{
           height: "100vh",
         }}
       >
-        <Grid
-          item
-          xs={12}
-          sm={8}
-          md={6}
-          component={Paper}
-          elevation={6}
-          square
-          sx={{ m: "auto" }}
-        >
-          <Box
-            sx={{
-              my: 2,
-              mx: 4,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            {/* <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar> */}
-
-            {/* <Typography component="h1" variant="h6">
-              Sign in
-            </Typography>
-            <Box
-              component="form"
-              noValidate
-              // onSubmit={handleSubmit}
-              sx={{ mt: 1 }}
-            >
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
-            </Box> */}
-          </Box>
+        {/* left cards */}
+        <Grid item xs={12} sm={6} md={6}>
+          <Grid container>
+            {logs && logs.map((log) => <LogCard log={log} key={log._id} />)}
+          </Grid>
         </Grid>
 
-        <Grid item xs={12} sm={4} md={6}>
+        {/* right map */}
+        <Grid item xs={12} sm={6}>
           <Map //Uncontrolled Map
             initialViewState={{
               longitude: 46,
@@ -137,11 +70,11 @@ const WorldMap = () => {
           >
             <LogList />
 
-            {addNewEntryLocation && (
+            {location && (
               <>
                 <Marker
-                  latitude={addNewEntryLocation.latitude}
-                  longitude={addNewEntryLocation.longitude}
+                  latitude={location.latitude}
+                  longitude={location.longitude}
                 >
                   <PlaceIcon
                     style={{
@@ -152,20 +85,19 @@ const WorldMap = () => {
                   />
                 </Marker>
                 <Popup
-                  longitude={addNewEntryLocation.longitude}
-                  latitude={addNewEntryLocation.latitude}
+                  longitude={location.longitude}
+                  latitude={location.latitude}
                   anchor="top-left"
-                  closeOnClick={false} //popup stays open when map is clicked
+                  closeOnClick={false}
                   onClose={() => {
-                    setAddNewEntryLocation(null);
+                    setLocation(null);
                   }}
                 >
                   <div>
                     <LogEntryForm
-                      location={addNewEntryLocation}
+                      location={location}
                       onClose={() => {
-                        //close form
-                        setAddNewEntryLocation(null);
+                        setLocation(null);
                       }}
                     />
                   </div>

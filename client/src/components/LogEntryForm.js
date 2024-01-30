@@ -1,10 +1,15 @@
-import { useState } from "react";
-import useLogsContext from "../hooks/useLogsContext";
-import Rating from "@mui/material/Rating";
-import { styled } from "@mui/material/styles";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import Input from "@mui/material/Input";
+import {
+  InputLabel,
+  Rating,
+  Box,
+  Input,
+  TextField,
+  styled,
+} from "@mui/material";
+import { useState } from "react";
+import useLogsContext from "../hooks/useLogsContext";
 
 const StyledRating = styled(Rating)({
   "& .MuiRating-iconFilled": {
@@ -21,45 +26,30 @@ const LogEntryForm = ({ location, onClose }) => {
   const [rating, setRating] = useState(0);
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
-  const [img, setImg] = useState("");
 
   const { addLog } = useLogsContext();
-  const cloud_api_key = "141442136837578";
-  const cloud_name = "dhhiphscp";
-  // //what do we want to happen when edit btn is clicked
-  // //aka what happens when edit state changes from false to true
-  // // we want the from to get title,rating,comments,image from this log
-  // // use useEffect to do that
-  // // to set data in edit state to display
-  // useEffect(() => {
-  //   if (logEdit.edit === true) {
-  //     setTitle(logEdit.entry.title);
-  //     setRating(logEdit.entry.rating);
-  //     setDescription(logEdit.entry.description);
-  //     setImage(logEdit.entry.image);
-  //   }
-  // }, [logEdit]); //run when logEdit switches
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const data = {
       latitude: location.latitude,
       longitude: location.longitude,
       title,
       rating,
       description,
-      // image,
+      image,
     };
-    // console.log(data);
+
     addLog(data);
-    console.log("current log: " + JSON.stringify(data));
+    // console.log("current log: " + JSON.stringify(data));
     onClose();
   };
 
   return (
-    <form className="entryForm" onSubmit={handleSubmit}>
-      <label htmlFor="title">Title</label>
-      <input
+    <Box component="form" onSubmit={handleSubmit}>
+      <InputLabel>City Name</InputLabel>
+      <TextField
         name="title"
         type="text"
         required
@@ -67,8 +57,7 @@ const LogEntryForm = ({ location, onClose }) => {
         onChange={(e) => setTitle(e.target.value)}
       />
 
-      <label htmlFor="rating">Rating</label>
-
+      <InputLabel>Rating</InputLabel>
       <StyledRating
         className="heart_rating"
         name="customized-color"
@@ -78,20 +67,18 @@ const LogEntryForm = ({ location, onClose }) => {
         emptyIcon={<FavoriteBorderIcon />}
         value={rating}
         onChange={(event, newValue) => {
-          console.log(newValue);
           setRating(newValue);
         }}
       />
 
-      <label htmlFor="comment">Description</label>
-      <textarea
+      <InputLabel>Description</InputLabel>
+      <TextField
         id="description"
         name="description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        cols={20}
-        rows={3}
-      ></textarea>
+        maxRows={4}
+      />
 
       <label htmlFor="image">Image</label>
       <Input
@@ -105,7 +92,7 @@ const LogEntryForm = ({ location, onClose }) => {
       <button type="submit" className="submitBtn" disabled={loading}>
         ADD
       </button>
-    </form>
+    </Box>
   );
 };
 

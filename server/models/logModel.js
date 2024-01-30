@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const logEntrySchema = new mongoose.Schema(
   {
+    user_id: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -20,14 +24,10 @@ const logEntrySchema = new mongoose.Schema(
     // },
     latitude: {
       type: Number,
-      min: -90,
-      max: 90,
       required: true,
     },
     longitude: {
       type: Number,
-      min: -180,
-      max: 180,
       required: true,
     },
   },

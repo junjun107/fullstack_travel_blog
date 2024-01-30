@@ -1,74 +1,86 @@
 // handle errors in Express async await request
 const asyncHandler = require("express-async-handler");
-const Log = require("../models/logModel");
+const LogEntry = require("../models/logModel");
 const mongoose = require("mongoose");
+const getIdFromToken = require("../utils");
 
 //GET all logs
 const getLogs = asyncHandler(async (req, res) => {
-  const logs = await Log.find();
+  const logs = await LogEntry.find().sort({ createdAt: -1 });
   res.status(200).json(logs);
 });
 
-//GET a single log
+//GET a single Log
 const getSingleLog = async (req, res) => {
   const { id } = req.params;
 
   //mongodb id validation
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "Log Not Found" });
+    return res.status(404).json({ error: "LogEntry Not Found" });
   }
-  const singleLog = await Log.findById(id);
+
+  const singleLog = await LogEntry.findById(id);
   //if id not found in db
   if (!singleLog) {
-    return res.status(404).json({ error: "Log Not Found" });
+    return res.status(404).json({ error: "LogEntry Not Found" });
   }
   res.status(200).json(singleLog);
 };
 
-//POST a new log
+//POST a new Log
 const addLog = async (req, res) => {
   console.log(req.body);
+  const user_id = getIdFromToken(req.headers.authorization);
   try {
-    const userInput = req.body;
-    const entryLog = await Log.create(userInput);
+    const data = {
+      ...req.body,
+      user_id,
+    };
+    console.log({ data });
+    const entryLog = await LogEntry.create(data);
+
     res.status(200).json(entryLog);
   } catch (error) {
+    console.log({ error });
     res.status(400).json({ error: error.message });
   }
 };
 
-//UPDATE a log
+//UPDATE a Log
 const updateLog = async (req, res) => {
   const { id } = req.params;
 
   //check id in mongodb
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "Log Not Found" });
+    return res.status(404).json({ error: "LogEntry Not Found" });
   }
   //update it
-  const log = await Log.findOneAndUpdate({ _id: id }, { ...req.body });
+  const LogEntry = await LogEntry.findOneAndUpdate(
+    { _id: id },
+    { ...req.body }
+  );
   //if id not found in db
-  if (!log) {
-    return res.status(404).json({ error: "Log Not Found" });
+  if (!LogEntry) {
+    return res.status(404).json({ error: "LogEntry Not Found" });
   }
-  res.status(200).json(log);
+  res.status(200).json(LogEntry);
 };
 
-// DELETE a log
+// DELETE a Log
 const deleteLog = async (req, res) => {
   const { id } = req.params;
 
   //mongodb id validation
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "Log Not Found" });
+    return res.status(404).json({ error: "LogEntry Not Found" });
   }
 
-  const log = await Log.findOneAndDelete({ _id: id });
+  const LogEntry = await LogEntry.findOneAndDelete({ _id: id });
   //if id not found in db
-  if (!log) {
-    return res.status(404).json({ error: "Log Not Found" });
+  if (!LogEntry) {
+    return res.status(404).json({ error: "LogEntry Not Found" });
   }
-  res.status(200).json(log);
+  res.status(200).json(LogEntry);
 };
 
 module.exports = {
