@@ -4,11 +4,12 @@ import { Box, Grid } from "@mui/material";
 import mapboxgl from "mapbox-gl";
 import React, { useState } from "react";
 import Map, { Marker, Popup } from "react-map-gl";
+import { Virtuoso } from "react-virtuoso";
+import useBreakpoints from "../hooks/useBreakpoint";
 import useLogsContext from "../hooks/useLogsContext";
 import LogCard from "./LogCard";
 import LogEntryForm from "./LogEntryForm";
 import LogList from "./LogList";
-
 // for react-map-gl
 import "mapbox-gl/dist/mapbox-gl.css";
 //prevent map-box to support older browser(downgrade)
@@ -19,7 +20,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 const WorldMap = () => {
   const [location, setLocation] = useState(null);
-
+  const { isDesktop, isTablet } = useBreakpoints();
   const { logs } = useLogsContext();
 
   const showAddMarkerPopup = (e) => {
@@ -34,9 +35,12 @@ const WorldMap = () => {
   };
   console.log(logs);
   return (
-    <Box sx={{ flexGrow: 1, m: 2 }}>
+    <Box
+      sx={{ flexGrow: 1, flex: "auto", overflowY: "hidden", display: "flex" }}
+    >
       <Grid
         container
+        spacing={{ xs: 2, md: 3 }}
         component="main"
         justifyContent="center"
         sx={{
@@ -44,21 +48,38 @@ const WorldMap = () => {
         }}
       >
         {/* left cards */}
-        <Grid item xs={12} sm={6} md={6}>
-          <Grid container>
-            {logs && logs.map((log) => <LogCard log={log} key={log._id} />)}
-          </Grid>
+        <Grid item xs={6} spacing={1}>
+          <Virtuoso
+            style={{ height: "100%" }}
+            totalCount={100}
+            itemContent={(index) => (
+              <Grid container spacing={1}>
+                {logs && index >= 0 && index < logs.length && (
+                  <>
+                    <Grid item xs={6} md={6} lg={6} key={logs[index]._id}>
+                      <LogCard log={logs[index]} />
+                    </Grid>
+                    {logs[index + 1] && (
+                      <Grid item xs={6} md={6} lg={6} key={logs[index + 1]._id}>
+                        <LogCard log={logs[index + 1]} />
+                      </Grid>
+                    )}
+                  </>
+                )}
+              </Grid>
+            )}
+          />
         </Grid>
 
         {/* right map */}
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={6}>
           <Map //Uncontrolled Map
             initialViewState={{
               longitude: 46,
               latitude: 17,
               zoom: 2,
             }}
-            style={{ width: 800, height: "100%" }}
+            style={{ width: "100%", height: "100%" }}
             mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
             mapStyle="mapbox://styles/junjun107/clk32th26004l01rj7pqp0uu1"
             attributionControl={false}

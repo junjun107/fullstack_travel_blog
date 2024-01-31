@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import WorldMap from "./components/WorldMap";
 import Navbar from "./components/Navbar";
+import Footer from "./components/UI/Footer";
 
 function App() {
   const { user } = useAuthContext();
@@ -30,6 +31,7 @@ function App() {
           element={!user ? <Register /> : <Navigate to="/" />}
         />
       </Routes>
+      <Footer />
     </Router>
   );
 }

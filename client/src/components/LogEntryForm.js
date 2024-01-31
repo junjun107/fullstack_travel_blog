@@ -7,6 +7,7 @@ import {
   Input,
   TextField,
   styled,
+  Paper,
 } from "@mui/material";
 import { useState } from "react";
 import useLogsContext from "../hooks/useLogsContext";
@@ -48,50 +49,52 @@ const LogEntryForm = ({ location, onClose }) => {
 
   return (
     <Box component="form" onSubmit={handleSubmit}>
-      <InputLabel>City Name</InputLabel>
-      <TextField
-        name="title"
-        type="text"
-        required
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
+      <Paper>
+        <InputLabel>City Name</InputLabel>
+        <TextField
+          name="title"
+          type="text"
+          required
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
 
-      <InputLabel>Rating</InputLabel>
-      <StyledRating
-        className="heart_rating"
-        name="customized-color"
-        defaultValue={1}
-        getLabelText={(value) => `${value} Heart${value !== 1 ? "s" : ""}`}
-        icon={<FavoriteIcon />}
-        emptyIcon={<FavoriteBorderIcon />}
-        value={rating}
-        onChange={(event, newValue) => {
-          setRating(newValue);
-        }}
-      />
+        <InputLabel>Rating</InputLabel>
+        <StyledRating
+          className="heart_rating"
+          name="customized-color"
+          defaultValue={1}
+          getLabelText={(value) => `${value} Heart${value !== 1 ? "s" : ""}`}
+          icon={<FavoriteIcon />}
+          emptyIcon={<FavoriteBorderIcon />}
+          value={rating}
+          onChange={(event, newValue) => {
+            setRating(newValue);
+          }}
+        />
 
-      <InputLabel>Description</InputLabel>
-      <TextField
-        id="description"
-        name="description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        maxRows={4}
-      />
+        <InputLabel>Description</InputLabel>
+        <TextField
+          id="description"
+          name="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          maxRows={4}
+        />
 
-      <label htmlFor="image">Image</label>
-      <Input
-        id="image"
-        name="image"
-        value={image}
-        type="text"
-        onChange={(e) => setImage(e.target.value)}
-      />
+        <label htmlFor="image">Image</label>
+        <Input
+          id="image"
+          name="image"
+          value={image}
+          type="text"
+          onChange={(e) => setImage(e.target.value)}
+        />
 
-      <button type="submit" className="submitBtn" disabled={loading}>
-        ADD
-      </button>
+        <button type="submit" className="submitBtn" disabled={loading}>
+          ADD
+        </button>
+      </Paper>
     </Box>
   );
 };
