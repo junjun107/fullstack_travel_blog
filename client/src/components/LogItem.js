@@ -26,7 +26,7 @@ const LogItem = ({ entry }) => {
   };
 
   return (
-    <Card sx={{ minWidth: 275, border: "3px solid red" }}>
+    <Card sx={{ minWidth: 275, borderBottom: 1 }}>
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           Place
@@ -61,7 +61,6 @@ const LogItem = ({ entry }) => {
           justifyContent: "space-between",
           p: 1,
           m: 1,
-          bgcolor: "background.paper",
           borderRadius: 1,
         }}
       >
