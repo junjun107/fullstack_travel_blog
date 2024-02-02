@@ -4,31 +4,9 @@ import { useAuthContext } from "../hooks/useAuthContext";
 // //create context
 export const LogsContext = createContext();
 
-// export const logsReducer = (state, action) => {
-
-//   switch (action.type) {
-//     case "GET_LOGS":
-//       return {
-//         logs: action.payload,
-//       };
-//     case "ADD_Log":
-//       return {
-//         logs: [action.payload, ...state.logs],
-//       };
-
-//     default:
-//       return state;
-//   }
-// };
-
 export const LogsContextProvider = ({ children }) => {
-  //   const [state, dispatch] = useReducer(logsReducer, { logs: null });
-
   const [logs, setLogs] = useState([]);
-  const [logEdit, setLogEdit] = useState({
-    entry: {},
-    edit: false,
-  });
+
   const { user } = useAuthContext();
 
   useEffect(() => {
@@ -70,20 +48,18 @@ export const LogsContextProvider = ({ children }) => {
     });
   };
 
-  // Edit a log
-  // const editLog = async (entry) => {
-  //   setLogEdit({
-  //     entry,
-  //     edit: true,
-  //   });
-  // };
-
   // Delete a log
   const deleteLog = async (id) => {
     if (!user) {
       return;
     }
-    await fetch(`/api/logs/${id}`, { method: "DELETE" });
+    await fetch(`http://localhost:5001/api/logs/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
     setLogs(logs.filter((item) => item._id !== id));
   };
 

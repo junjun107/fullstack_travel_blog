@@ -1,7 +1,5 @@
 import React from "react";
 import StarIcon from "@mui/icons-material/Star";
-// import EditIcon from "@mui/icons-material/Edit";
-// import DeleteIcon from "@mui/icons-material/Delete";
 import useLogsContext from "../hooks/useLogsContext";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -10,19 +8,17 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
 const LogItem = ({ entry }) => {
-  // const { editLog, deleteLog } = useLogsContext();
   const { deleteLog } = useLogsContext();
+
   const logDate = new Date(entry.createdAt).toLocaleDateString("en-us", {
     year: "numeric",
     month: "short",
     day: "numeric",
   });
-  // const handleEdit = () => {
-  //   console.log(entry);
-  //   editLog(entry);
-  // };
+
   const handleDelete = (id) => {
     deleteLog(entry._id);
+    // console.log("logitem from front:" + entry._id);
   };
 
   return (

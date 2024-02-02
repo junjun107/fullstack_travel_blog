@@ -20,7 +20,6 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 const WorldMap = () => {
   const [location, setLocation] = useState(null);
-  const { isDesktop, isTablet } = useBreakpoints();
   const { logs } = useLogsContext();
 
   const showAddMarkerPopup = (e) => {
@@ -33,7 +32,8 @@ const WorldMap = () => {
       latitude: ll.lat,
     });
   };
-  console.log(logs);
+  // console.log(logs);
+
   return (
     <Box
       sx={{ flexGrow: 1, flex: "auto", overflowY: "hidden", display: "flex" }}
@@ -48,7 +48,7 @@ const WorldMap = () => {
         }}
       >
         {/* left cards */}
-        <Grid item xs={6} spacing={1}>
+        <Grid item xs={6}>
           <Virtuoso
             style={{ height: "100%" }}
             totalCount={100}

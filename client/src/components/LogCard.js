@@ -22,7 +22,11 @@ export default function LogCard({ log }) {
         borderColor: "#D8D8D8",
       }}
     >
-      <CardMedia sx={{ height: 200, borderRadius: 1 }} image={log.image} />
+      <CardMedia
+        sx={{ height: 200, borderRadius: 1 }}
+        component="img"
+        image={log.image}
+      />
       {/* <CardContent>
         <Typography gutterBottom variant="h6" component="div">
           {log.title}
