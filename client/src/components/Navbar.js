@@ -15,6 +15,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { Link } from "react-router-dom";
+import { ReactComponent as MapMyWayLogo } from "../asset/mapmyway-high-res-logo.svg";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -76,15 +77,9 @@ const Navbar = () => {
       >
         <Toolbar>
           <ListItemButton component={Link} to="/">
-            {/* <ListItemText primary="LOGO" /> */}
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1, color: "text.secondary" }}
-            >
-              News
-            </Typography>
+            <MapMyWayLogo />
           </ListItemButton>
+
           <IconButton edge="end" aria-label="menu" onClick={toggleDrawer(true)}>
             <MenuIcon />
           </IconButton>
