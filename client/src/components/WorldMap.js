@@ -1,15 +1,16 @@
 import PlaceIcon from "@mui/icons-material/Place";
 import { Box, Grid } from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
 // import "mapbox-gl/dist/mapbox-gl.css";
 import mapboxgl from "mapbox-gl";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Map, { Marker, Popup } from "react-map-gl";
 import { Virtuoso } from "react-virtuoso";
-import useBreakpoints from "../hooks/useBreakpoint";
 import useLogsContext from "../hooks/useLogsContext";
 import LogCard from "./LogCard";
 import LogEntryForm from "./LogEntryForm";
 import LogList from "./LogList";
+
 // for react-map-gl
 import "mapbox-gl/dist/mapbox-gl.css";
 //prevent map-box to support older browser(downgrade)
@@ -20,7 +21,17 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 const WorldMap = () => {
   const [location, setLocation] = useState(null);
+  // const [filteredData, setFilteredData] = useState([]);
+
   const { logs } = useLogsContext();
+
+  // useEffect(() => {
+  //   // Filter out items that might cause the "zero-sized element" error
+  //   const validItems = logs.filter(
+  //     (item) => item.image && item.image.trim() !== ""
+  //   );
+  //   setFilteredData(validItems);
+  // }, [logs]);
 
   const showAddMarkerPopup = (e) => {
     const { lng, lat } = e.lngLat;
@@ -32,8 +43,7 @@ const WorldMap = () => {
       latitude: ll.lat,
     });
   };
-  // console.log(logs);
-
+  console.log(logs);
   return (
     <Box
       sx={{ flexGrow: 1, flex: "auto", overflowY: "hidden", display: "flex" }}
@@ -51,26 +61,24 @@ const WorldMap = () => {
         <Grid item xs={6}>
           <Virtuoso
             style={{ height: "100%" }}
-            totalCount={100}
+            totalCount={Math.ceil(logs.length / 2)} // Adjust totalCount to account for pairs
             itemContent={(index) => (
               <Grid container spacing={1}>
-                {logs && index >= 0 && index < logs.length && (
-                  <>
-                    <Grid item xs={6} md={6} lg={6} key={logs[index]._id}>
-                      <LogCard log={logs[index]} />
-                    </Grid>
-                    {logs[index + 1] && (
-                      <Grid item xs={6} md={6} lg={6} key={logs[index + 1]._id}>
-                        <LogCard log={logs[index + 1]} />
-                      </Grid>
-                    )}
-                  </>
+                {/* Render the pair of logs for the current index */}
+                {logs && index * 2 < logs.length && (
+                  <Grid item xs={6} md={6} lg={6} key={logs[index * 2]._id}>
+                    <LogCard log={logs[index * 2]} />
+                  </Grid>
+                )}
+                {logs && index * 2 + 1 < logs.length && (
+                  <Grid item xs={6} md={6} lg={6} key={logs[index * 2 + 1]._id}>
+                    <LogCard log={logs[index * 2 + 1]} />
+                  </Grid>
                 )}
               </Grid>
             )}
           />
         </Grid>
-
         {/* right map */}
         <Grid item xs={6}>
           <Map //Uncontrolled Map

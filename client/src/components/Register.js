@@ -9,51 +9,37 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-// import { createTheme, ThemeProvider } from "@mui/material/styles";
+
 import PasswordInput from "./UI/PasswordInput";
 import useRegister from "../hooks/useRegister";
-// function Copyright(props) {
-//   return (
-//     <Typography
-//       variant="body2"
-//       color="text.secondary"
-//       align="center"
-//       {...props}
-//     >
-//       {"Copyright © "}
-//       <Link color="inherit" href="https://mui.com/">
-//         Your Website
-//       </Link>{" "}
-//       {new Date().getFullYear()}
-//       {"."}
-//     </Typography>
-//   );
-// }
-
-// TODO remove, this demo shouldn't need to reset the theme.
-
-// const defaultTheme = createTheme();
 
 export default function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { register, error, isLoading } = useRegister();
+  const { register, error } = useRegister();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     await register(username, email, password);
-
-    // console.log(username, email, password);
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container
+      component="main"
+      maxWidth="xs"
+      sx={{
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
       <CssBaseline />
       <Box
         sx={{
-          marginTop: 8,
+          // marginTop: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -108,7 +94,6 @@ export default function Register() {
             </Grid>
           </Grid>
           <Button
-            // disabled={isLoading}
             type="submit"
             fullWidth
             variant="contained"
@@ -130,6 +115,7 @@ export default function Register() {
           </Grid>
         </Box>
       </Box>
+
       {error && (
         <div>
           <Typography variant="subtitle1" style={{ color: "red" }}>
@@ -137,7 +123,6 @@ export default function Register() {
           </Typography>
         </div>
       )}
-      {/* <Copyright sx={{ mt: 5 }} /> */}
     </Container>
   );
 }
