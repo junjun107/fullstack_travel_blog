@@ -8,6 +8,9 @@ import {
   TextField,
   styled,
   Paper,
+  Card,
+  CardContent,
+  Typography,
 } from "@mui/material";
 import { useState } from "react";
 import useLogsContext from "../hooks/useLogsContext";
@@ -25,6 +28,7 @@ const LogEntryForm = ({ location, onClose }) => {
   const [loading, setLoading] = useState(false); //set loading to true when making request, when done set to false
   const [title, setTitle] = useState("");
   const [rating, setRating] = useState(0);
+
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
 
@@ -48,20 +52,31 @@ const LogEntryForm = ({ location, onClose }) => {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit}>
-      <Paper>
-        <InputLabel>City Name</InputLabel>
+    <Card
+      component="form"
+      onSubmit={handleSubmit}
+      sx={{ minWidth: 200, borderBottom: 1 }}
+    >
+      <CardContent>
+        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          City Name
+        </Typography>
         <TextField
           name="title"
           type="text"
+          sx={{ marginBottom: 2 }}
           required
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
 
-        <InputLabel>Rating</InputLabel>
+        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          Rating
+        </Typography>
+
         <StyledRating
           className="heart_rating"
+          sx={{ marginBottom: 2 }}
           name="customized-color"
           defaultValue={1}
           getLabelText={(value) => `${value} Heart${value !== 1 ? "s" : ""}`}
@@ -73,16 +88,27 @@ const LogEntryForm = ({ location, onClose }) => {
           }}
         />
 
-        <InputLabel>Description</InputLabel>
+        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          Description
+        </Typography>
+
         <TextField
           id="description"
           name="description"
           value={description}
+          sx={{ marginBottom: 2 }}
           onChange={(e) => setDescription(e.target.value)}
           maxRows={4}
         />
 
-        <label htmlFor="image">Image</label>
+        <Typography
+          htmlFor="image"
+          sx={{ fontSize: 14 }}
+          color="text.secondary"
+          gutterBottom
+        >
+          Image Url
+        </Typography>
         <Input
           id="image"
           name="image"
@@ -94,8 +120,8 @@ const LogEntryForm = ({ location, onClose }) => {
         <button type="submit" className="submitBtn" disabled={loading}>
           ADD
         </button>
-      </Paper>
-    </Box>
+      </CardContent>
+    </Card>
   );
 };
 

@@ -4,6 +4,7 @@ import App from "./App";
 import { LogsContextProvider } from "./context/LogsContext";
 import { AuthContextProvider } from "./context/AuthContext";
 import { ThemeProvider } from "@mui/material/styles";
+import "../src/root.css";
 import defaultTheme from "./theme";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
