@@ -17,7 +17,7 @@ export const LogsContextProvider = ({ children }) => {
 
   //get logs from db
   const fetchLogs = async () => {
-    const res = await fetch("http://localhost:5001/api/logs", {
+    const res = await fetch("https://beige-gazelle-gear.cyclic.app/api/logs", {
       headers: { Authorization: `Bearer ${user.token}` },
     });
 
@@ -32,7 +32,7 @@ export const LogsContextProvider = ({ children }) => {
     }
 
     const res = await fetch(
-      `http://localhost:5001/api/logs?email=${user.email}`,
+      `https://beige-gazelle-gear.cyclic.app/api/logs?email=${user.email}`,
       {
         method: "POST",
         headers: {
@@ -53,7 +53,7 @@ export const LogsContextProvider = ({ children }) => {
     if (!user) {
       return;
     }
-    await fetch(`http://localhost:5001/api/logs/${id}`, {
+    await fetch(`https://beige-gazelle-gear.cyclic.app/api/logs/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
