@@ -17,11 +17,15 @@ app.use(cors());
 ///middlewares
 app.use(express.json());
 
-
 //Serving Frontend
-// app.use(express.static(path.join(__dirname, "../client/build")));
+app.use(express.static(path.join(__dirname, "../client/build")));
 
 // Routes
+app.get("/", (req, res) => {
+  res.status(200).json({
+    message: "Welcome to mapmayway travel log backend",
+  });
+});
 app.use("/api/logs", require("./routes/logsRoute"));
 app.use("/api/users", require("./routes/usersRoute"));
 
