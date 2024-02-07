@@ -5,7 +5,6 @@ import { useAuthContext } from "../hooks/useAuthContext";
 export const LogsContext = createContext();
 
 export const LogsContextProvider = ({ children }) => {
-  
   const [logs, setLogs] = useState([]);
 
   const { user } = useAuthContext();
@@ -32,17 +31,14 @@ export const LogsContextProvider = ({ children }) => {
       return;
     }
 
-    const res = await fetch(
-      `https://beige-gazelle-gear.cyclic.app/api/logs?email=${user.email}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-        body: JSON.stringify(newLog),
-      }
-    );
+    const res = await fetch("https://beige-gazelle-gear.cyclic.app/api/logs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+      body: JSON.stringify(newLog),
+    });
     const data = await res.json();
     setLogs((prevLogs) => {
       return [data, ...prevLogs];
