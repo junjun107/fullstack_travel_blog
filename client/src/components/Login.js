@@ -21,8 +21,8 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link color="inherit" href="">
-        MapMyWay Domian URL HERE
+      <Link color="inherit" href="https://beige-gazelle-gear.cyclic.app/">
+        MapMyWay
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -31,7 +31,7 @@ function Copyright(props) {
 }
 
 export default function Login() {
-  const [email, setEmail] = useState("adminuser@dispostable.com");
+  const [email, setEmail] = useState("bz.bijun@gmail.com");
   const [password, setPassword] = useState("12345678");
 
   const { login, isLoading, error } = useLogin();
