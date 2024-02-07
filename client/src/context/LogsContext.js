@@ -5,6 +5,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 export const LogsContext = createContext();
 
 export const LogsContextProvider = ({ children }) => {
+  
   const [logs, setLogs] = useState([]);
 
   const { user } = useAuthContext();

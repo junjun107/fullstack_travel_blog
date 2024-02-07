@@ -47,7 +47,7 @@ const LogEntryForm = ({ location, onClose }) => {
     };
 
     addLog(data);
-    // console.log("current log: " + JSON.stringify(data));
+    console.log("current log: " + JSON.stringify(data));
     onClose();
   };
 
