@@ -31,8 +31,8 @@ function Copyright(props) {
 }
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("adminuser@dispostable.com");
+  const [password, setPassword] = useState("12345678");
 
   const { login, isLoading, error } = useLogin();
 
